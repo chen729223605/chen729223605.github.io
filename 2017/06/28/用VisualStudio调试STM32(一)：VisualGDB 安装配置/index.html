@@ -1,0 +1,704 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="VisualGDB,VisualStudio,STM32," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="0 介绍众所周知，在调试STM32等ARM芯片的时候，一般就用以下几种编辑器：KEIL，IAR等等。然而，这两款编辑器的编辑功能非常简陋，导致开发人员用起来非常不爽。 特别是在用过Visual Studio之后，完全无法适应功能如此弱小的编辑器。  所以，有很多想摆脱KEIL等软件束缚的程序员，开始想摆脱他们。比如我。但是，由于网上的资源匮乏，而且，配置也复杂，往往有的就算配置成功也是只能编辑，不">
+<meta name="keywords" content="VisualGDB,VisualStudio,STM32">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用VisualStudio调试STM32(一)：VisualGDB 安装配置">
+<meta property="og:url" content="http://yoursite.com/2017/06/28/用VisualStudio调试STM32(一)：VisualGDB 安装配置/index.html">
+<meta property="og:site_name" content="jarming">
+<meta property="og:description" content="0 介绍众所周知，在调试STM32等ARM芯片的时候，一般就用以下几种编辑器：KEIL，IAR等等。然而，这两款编辑器的编辑功能非常简陋，导致开发人员用起来非常不爽。 特别是在用过Visual Studio之后，完全无法适应功能如此弱小的编辑器。  所以，有很多想摆脱KEIL等软件束缚的程序员，开始想摆脱他们。比如我。但是，由于网上的资源匮乏，而且，配置也复杂，往往有的就算配置成功也是只能编辑，不">
+<meta property="og:image" content="http://markdown.jarming.cn/1484373765421.jpg">
+<meta property="og:image" content="http://markdown.jarming.cn/1484376226956.jpg">
+<meta property="og:image" content="http://markdown.jarming.cn/1484376273961.jpg">
+<meta property="og:image" content="http://markdown.jarming.cn/1484376386144.jpg">
+<meta property="og:updated_time" content="2017-06-28T00:38:08.973Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用VisualStudio调试STM32(一)：VisualGDB 安装配置">
+<meta name="twitter:description" content="0 介绍众所周知，在调试STM32等ARM芯片的时候，一般就用以下几种编辑器：KEIL，IAR等等。然而，这两款编辑器的编辑功能非常简陋，导致开发人员用起来非常不爽。 特别是在用过Visual Studio之后，完全无法适应功能如此弱小的编辑器。  所以，有很多想摆脱KEIL等软件束缚的程序员，开始想摆脱他们。比如我。但是，由于网上的资源匮乏，而且，配置也复杂，往往有的就算配置成功也是只能编辑，不">
+<meta name="twitter:image" content="http://markdown.jarming.cn/1484373765421.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/28/用VisualStudio调试STM32(一)：VisualGDB 安装配置/"/>
+
+
+
+
+
+  <title>用VisualStudio调试STM32(一)：VisualGDB 安装配置 | jarming</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">jarming</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/28/用VisualStudio调试STM32(一)：VisualGDB 安装配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jarming">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://ojm6ggcxb.bkt.clouddn.com/touxiang/touxiang1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="jarming">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">用VisualStudio调试STM32(一)：VisualGDB 安装配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-28T08:38:08+08:00">
+                2017-06-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="0-介绍"><a href="#0-介绍" class="headerlink" title="0 介绍"></a>0 介绍</h1><p>众所周知，在调试STM32等ARM芯片的时候，一般就用以下几种编辑器：KEIL，IAR等等。然而，这两款编辑器的编辑功能非常简陋，导致开发人员用起来非常不爽。 特别是在用过Visual Studio之后，完全无法适应功能如此弱小的编辑器。 </p>
+<p>所以，有很多想摆脱KEIL等软件束缚的程序员，开始想摆脱他们。比如我。但是，由于网上的资源匮乏，而且，配置也复杂，往往有的就算配置成功也是只能编辑，不能调试。导致不得不放弃该想法。而调试功能也是一个硬伤。 只有KEIL IAR等这种专门做这个的IDE才有，大部分好用的IDE都不具备。</p>
+<p>但是，最近在网上找到了一个解决这个问题的办法。能够解决ARM调试+编辑的问题。而且编辑器用的是Visual Studio。这个真是一个振奋人心的消息。于是，就出了本篇笔记。</p>
+<p>这是一个Visual Studio插件。 叫VisualGDB。已经实现了在VisualStudio中调试ARM程序，而且可以使用VisualStudio这个强大的编辑器！！<br>简直不要太爽。</p>
+<p>先看效果图：<br><img src="http://markdown.jarming.cn/1484373765421.jpg" alt="visual studio 2015" title="1484373765421.jpg"><br>这个图是我刚刚配置好的 GPIO控制的工程。正常调试当中。</p>
+<h1 id="1-前提"><a href="#1-前提" class="headerlink" title="1 前提"></a>1 前提</h1><ul>
+<li>该工具是用gcc编译的。等于是学习一种新的编译器。和KEIL的armcc不同。各有千秋吧。</li>
+<li>学习一些新的东西难免要折腾。欢迎喜欢折腾的同学来一起探讨呀。</li>
+</ul>
+<h1 id="2-安装准备"><a href="#2-安装准备" class="headerlink" title="2 安装准备"></a>2 安装准备</h1><p>安装之前需要有如下准备：</p>
+<ol>
+<li>viusal studio 201x   支持很多版本。我用的是viusal studio2015</li>
+<li>visual stdtio2015 在安装时要选择 编程语言-&gt;Visual C++-&gt;适用于Visual C++ 2015的公共工具。</li>
+<li>第二点安装完成后  可以创建win32控制台应用程序 则表示OK了。其他版本也是一样。能创建WIN32控制台应用程序，表示已经装了Visual C++支持</li>
+<li>viusal GDB 以及破解文件。</li>
+</ol>
+<h2 id="2-1-相关工具"><a href="#2-1-相关工具" class="headerlink" title="2.1 相关工具"></a>2.1 相关工具</h2><p><strong>Visual Studio</strong><br>网址<a href="http://www.ithome.com/html/win10/164028.htm" target="_blank" rel="external">http://www.ithome.com/html/win10/164028.htm</a><br>这里提供一下两个破解密匙：<br>专业版：HMGNV-WCYXV-X7G9W-YCX63-B98R2<br>企业版：HM6NR-QXX7C-DFW2Y-8B82K-WTYJV </p>
+<p><strong>Visual GDB</strong><br> 百度云<br> 链接: <a href="http://pan.baidu.com/s/1kVltFWN" target="_blank" rel="external">http://pan.baidu.com/s/1kVltFWN</a> 密码: b1mc</p>
+<h1 id="3-安装"><a href="#3-安装" class="headerlink" title="3.安装"></a>3.安装</h1><h2 id="3-1-VS的安装"><a href="#3-1-VS的安装" class="headerlink" title="3.1 VS的安装"></a>3.1 VS的安装</h2><p>此处略过</p>
+<h2 id="3-2-VisualGDB的安装"><a href="#3-2-VisualGDB的安装" class="headerlink" title="3.2 VisualGDB的安装"></a>3.2 VisualGDB的安装</h2><p>1 关闭VisualStudio<br>2 安装VisualGDB-5.2r7-trial.msi<br><img src="http://markdown.jarming.cn/1484376226956.jpg" alt="安装ViusalGDB" title="1484376226956.jpg"><br>一直下一步即可</p>
+<p>3 安装完成后 再破解<br><img src="http://markdown.jarming.cn/1484376273961.jpg" alt="破解" title="1484376273961.jpg"><br>点击Patch即可 。</p>
+<p>4 打开Visual Studio2015<br>4.1 点击新建工程<br><img src="http://markdown.jarming.cn/1484376386144.jpg" alt="新建工程" title="1484376386144.jpg"></p>
+<p>出现<code>Visual GDB</code>选项卡，表示安装成功啦。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/VisualGDB-VisualStudio-STM32/" rel="tag"># VisualGDB,VisualStudio,STM32</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/28/用VisualStudio调试STM32(二)：新建GPIO工程/" rel="next" title="用VisualStudio调试STM32(二)：新建GPIO工程">
+                <i class="fa fa-chevron-left"></i> 用VisualStudio调试STM32(二)：新建GPIO工程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ojm6ggcxb.bkt.clouddn.com/touxiang/touxiang1.jpg"
+               alt="jarming" />
+          <p class="site-author-name" itemprop="name">jarming</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0-介绍"><span class="nav-number">1.</span> <span class="nav-text">0 介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-前提"><span class="nav-number">2.</span> <span class="nav-text">1 前提</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-安装准备"><span class="nav-number">3.</span> <span class="nav-text">2 安装准备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-相关工具"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 相关工具</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-安装"><span class="nav-number">4.</span> <span class="nav-text">3.安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-VS的安装"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 VS的安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-VisualGDB的安装"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 VisualGDB的安装</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jarming</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
